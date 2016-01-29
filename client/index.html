@@ -1,0 +1,58 @@
+<html lang='pt-br' >
+  <head>
+    <link rel='stylesheet' href='bower_components/bootstrap/dist/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='bower_components/bootstrap/dist/css/bootstrap-theme.min.css'>
+    <link rel='stylesheet' href='bower_components/bootswatch/slate/bootstrap.min.css'>
+    <link rel='stylesheet' href='bower_components/font-awesome/css/font-awesome.min.css'>
+    <link rel='stylesheet' href='styles/styles.css'>
+
+    <title>Bender Web</title>
+  </head>
+  <body ng-app='app' ng-cloak>
+    <script src='bower_components/angular/angular.min.js'></script>
+    <script src='bower_components/angular-route/angular-route.min.js'></script>
+    <script src='bower_components/angular-animate/angular-animate.min.js'></script>
+    <script src='https://cdn.socket.io/socket.io-1.4.5.js'></script>
+
+    <script src='app/app.module.js'></script>
+
+    <script src='app/dashboard/dashboard.module.js'></script>
+    <script src='app/dashboard/dashboard.routes.js'></script>
+    <script src='app/dashboard/dashboard.main.controller.js'></script>
+    <script src='app/dashboard/dashboard.relay.controller.js'></script>
+    <script src='app/dashboard/dashboard.infra-red.controller.js'></script>
+
+    <script src='app/services/services.module.js'></script>
+    <script src='app/services/services.socket.js'></script>
+
+    <nav class='navbar navbar-collapse collapse navbar-fixed-top'>
+      <div class='container'>
+        <div class='navbar-header'>
+          <button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'>
+            <span class='sr-only'>Toggle navigation</span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+          </button>
+          <a class='navbar-brand' href='#'>Bender Web</a>
+        </div>
+        <div class='nav navbar-nav'>
+          <ul class='nav navbar-nav'>
+            <li>
+              <a href='#'>Home</a>
+            </li>
+            <li>
+              <a href='#/relay/'>Relé</a>
+            </li>
+            <li>
+              <a href='#/infra-red/'>Infra Vermelho</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class='container view' ng-view>
+    </div>
+  </body>
+</html>
