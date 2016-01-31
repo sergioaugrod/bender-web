@@ -5,9 +5,10 @@
     .module('app.dashboard')
     .controller('DashboardMainController', DashboardMainController);
 
-  DashboardMainController.$inject = ['$scope'];
+  DashboardMainController.$inject = ['$scope', 'SocketService'];
 
   /* @ngInject */
-  function DashboardMainController($scope) {
+  function DashboardMainController($scope, SocketService) {
+    //SocketService.connect();
   }
 })();

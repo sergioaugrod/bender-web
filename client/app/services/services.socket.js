@@ -9,42 +9,37 @@
 
   /* @ngInject */
   function SocketService ($rootScope) {
-    var socket;
+    var socket = null;
+    var channel = null;
     var connected = false;
 
     var service = {
       connect: function() {
-        socket = io.connect({'forceNew':true });
+        socket = new Phoenix.Socket('ws://localhost:4000/socket');
+        channel = socket.channel('arduino:messages');
         connected = true;
       },
       disconnect: function() {
         socket.disconnect();
         connected = false;
-        socket = undefined;
+        socket = null;
+        channel = null;
       },
       connected: function() {
         return connected;
       },
       on: function(eventName, callback) {
         if(socket) {                    
-          socket.on(eventName, function() {
-            var args = arguments;
+          channel.on(eventName, function(data) {
             $rootScope.$apply(function() {
-              callback.apply(socket, args);
+              callback.apply(socket, data);
             });
           });
         }
       },
-      emit: function(eventName, data, callback) {
+      emit: function(eventName, data) {
         if(socket) {
-          socket.emit(eventName, data, function() {
-            var args = arguments;
-            $rootScope.$apply(function() {
-              if (callback) {
-                callback.apply(socket, args);
-              }
-            });
-          });
+          channel.push(eventName, data);
         }
       },
       getSocket: function() {
