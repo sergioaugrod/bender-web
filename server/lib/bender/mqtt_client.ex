@@ -14,12 +14,19 @@ defmodule Bender.MqttClient do
     Bender.MqttClient.subscribe(Process.whereis(:mqtt), options)
   end
 
+  def publish_message(message, topic) do
+    options = [id: 101, topic: topic, message: message, dup: 0, qos: 0, retain: 0]
+
+    Bender.MqttClient.publish(Process.whereis(:mqtt), options)
+    Logger.info("Published message #{message} to #{topic}")
+  end
+
   def on_subscribed_publish(options) do
     option = List.first(options)
     value = elem(option, 1).message
     topic = elem(option, 1).topic
 
-    Logger.info("Subscribed message #{value} from #{topic}")
     Bender.Endpoint.broadcast("sensors:data", "sensor:update", %{value: value, topic: topic})
+    Logger.info("Subscribed message #{value} from #{topic}")
   end
 end
