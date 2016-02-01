@@ -11,12 +11,13 @@
   function SocketService ($rootScope) {
     var socket = null;
     var connected = false;
+    var channels = {};
 
     var service = {
       connect: function(url) {
         var url = url || 'localhost:4000';
 
-        if (!connected) {
+        if(!connected) {
           socket = new Phoenix.Socket('ws://'+ url +'/socket');
           socket.connect();
           connected = true;
@@ -27,15 +28,18 @@
       channel: function(topic) {
         var channel = null;
 
-        if (connected && socket) {
+        if(connected && socket && !channels[topic]) {
           channel = socket.channel(topic);
           channel.join();
+          channels[topic] = channel;
+        } else if(channels[topic]) {
+          return channels[topic];
         }
 
         return channel;
       },
       disconnect: function() {
-        if (connected) {
+        if(connected) {
           socket.disconnect();
           connected = false;
           socket = null;
