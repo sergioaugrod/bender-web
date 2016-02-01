@@ -4,6 +4,7 @@ defmodule Bender.UserSocket do
   ## Channels
   channel "sensors:*", Bender.SensorChannel
   channel "relays:*", Bender.RelayChannel
+  channel "infrared:*", Bender.InfraredChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

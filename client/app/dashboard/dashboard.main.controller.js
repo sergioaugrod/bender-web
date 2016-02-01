@@ -18,22 +18,6 @@
     var socket = SocketService.connect();
     var channel = SocketService.channel('sensors:data');
 
-    socket.onOpen(function(message) {
-      console.log('OPEN', message);
-    });
-
-    socket.onError(function(message) {
-      console.log('ERROR', message);
-    });
-
-    socket.onClose(function(message) {
-      console.log('CLOSE', message);
-    });
-
-    channel.on('user:entered', function(message) {
-      console.log(message);
-    });
-
     channel.on('sensor:update', function(message) {
       var sensor = message.topic.split("/")[1];
 

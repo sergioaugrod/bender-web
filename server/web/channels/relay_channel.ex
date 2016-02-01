@@ -5,10 +5,6 @@ defmodule Bender.RelayChannel do
     {:ok, socket}
   end
 
-  def join("relays:" <> _private_room_id, _params, _socket) do
-    {:error, %{reason: "unauthorized"}}
-  end
-
   def handle_in("relays:turn", message, socket) do
     turn = message["turn"]
 

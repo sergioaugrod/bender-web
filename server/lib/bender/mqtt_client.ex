@@ -10,7 +10,7 @@ defmodule Bender.MqttClient do
   end
 
   def handle_subscribes do
-    options = [id: 100, topics: ["sensors/luminosity", "sensors/temperature", "sensors/breathalyzer"], qoses: [0, 0, 0]]
+    options = [id: 100, topics: ["sensors/luminosity", "sensors/temperature", "sensors/breathalyzer", "infrared/value"], qoses: [0, 0, 0, 0]]
     Bender.MqttClient.subscribe(Process.whereis(:mqtt), options)
   end
 
@@ -26,7 +26,11 @@ defmodule Bender.MqttClient do
     value = elem(option, 1).message
     topic = elem(option, 1).topic
 
-    Bender.Endpoint.broadcast("sensors:data", "sensor:update", %{value: value, topic: topic})
+    case topic do
+      "infrared/value" -> Bender.Endpoint.broadcast("infrared:control", "infrared:value", %{value: value, topic: topic})
+      _                -> Bender.Endpoint.broadcast("sensors:data", "sensor:update", %{value: value, topic: topic})
+    end
+
     Logger.info("Subscribed message #{value} from #{topic}")
   end
 end

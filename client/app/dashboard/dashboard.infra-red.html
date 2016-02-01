@@ -1,3 +1,28 @@
 <div class='row'>
   <h1>Infra Vermelho</h1>
+
+  <form ng-submit='addCode(code)'>
+    <div class='form-group'>
+      <label for='code'>Código</label>
+      <input type='text' class='form-control' id='code' ng-model='code' placeholder='Código'>
+    </div>
+    <button type='submit' class='btn btn-success'>Submit</button>
+  </form>
+
+  <table class='table table-striped' ng-if='codes.length > 0'>
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Enviar Sinal</th>
+        <th>Remover</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat='code in codes track by $index'>
+        <td>{{code}}</td>
+        <td><button type='button' class='btn btn-success' ng-click='send(code)'>Enviar</button></td>
+        <td><button type='button' class='btn btn-danger' ng-click='removeCode(index)'>Remover</button></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
