@@ -9,6 +9,7 @@ defmodule Bender do
     children = [
       # Start the endpoint when the application starts
       supervisor(Bender.Endpoint, []),
+      supervisor(Bender.MqttClient, [%{}])
       # Here you could define other workers and supervisors as children
       # worker(Bender.Worker, [arg1, arg2, arg3]),
     ]
@@ -16,7 +17,14 @@ defmodule Bender do
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Bender.Supervisor]
-    Supervisor.start_link(children, opts)
+
+    supervisor = Supervisor.start_link(children, opts)
+    pid = elem(List.first(Supervisor.which_children(elem(supervisor, 1))), 1)
+
+    Process.register(pid, :mqtt)
+
+    Bender.MqttClient.start
+    supervisor
   end
 
   # Tell Phoenix to update the endpoint configuration

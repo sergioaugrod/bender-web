@@ -2,7 +2,7 @@ defmodule Bender.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "rooms:*", Bender.RoomChannel
+  channel "sensors:*", Bender.SensorChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
