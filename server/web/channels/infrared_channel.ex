@@ -1,7 +1,7 @@
 defmodule Bender.InfraredChannel do
   use Phoenix.Channel
 
-  def join("infrared:control", message, socket) do
+  def join("infrared:control", _message, socket) do
     {:ok, socket}
   end
 

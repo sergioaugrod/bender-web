@@ -28,7 +28,9 @@
     };
 
     $scope.send = function(code) {
-      code && channel.push('infrared:sender', {code: code});
+      var irCode = 'IR|' + code;
+
+      code && channel.push('infrared:sender', {code: irCode});
     };
 
     $scope.removeCode = function(index) {

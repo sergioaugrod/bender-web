@@ -26,6 +26,12 @@ $ mix deps.get
 $ mix phoenix.server
 ```
 
+Change MQTT host config `mqtt.host` in `server/config/config.exs`:
+
+```elixir
+  mqtt: [host: "localhost" ]
+```
+
 ## Usage
 
 Now you can visit [`localhost:8080`](http://localhost:8080) from your browser.

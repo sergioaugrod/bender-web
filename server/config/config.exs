@@ -12,7 +12,8 @@ config :bender, Bender.Endpoint,
   secret_key_base: "DTmkVsdVV+y4/JQ3setrxoX67Fzs4ssWhUCdXwKL3uVT6c8aF+cSOEpU4pbV9aoG",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: Bender.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+           adapter: Phoenix.PubSub.PG2],
+  mqtt: [host: "localhost"]
 
 # Configures Elixir's Logger
 config :logger, :console,

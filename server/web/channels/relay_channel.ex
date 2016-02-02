@@ -1,7 +1,7 @@
 defmodule Bender.RelayChannel do
   use Phoenix.Channel
 
-  def join("relays:control", message, socket) do
+  def join("relays:control", _message, socket) do
     {:ok, socket}
   end
 

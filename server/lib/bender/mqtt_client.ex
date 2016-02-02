@@ -3,22 +3,27 @@ defmodule Bender.MqttClient do
   use Hulaaki.Client
 
   def start do
-    options = [client_id: "bender-web-phoenix", host: "localhost", port: 1883, keep_alive: 3600]
+    mqtt_host = Application.get_env(:bender, Bender.Endpoint)[:mqtt][:host]
+
+    options = [client_id: "bender-web-phoenix", host: mqtt_host, port: 1883, keep_alive: 3600]
     Bender.MqttClient.connect(Process.whereis(:mqtt), options)
     
     handle_subscribes
   end
 
   def handle_subscribes do
-    options = [id: 100, topics: ["sensors/luminosity", "sensors/temperature", "sensors/breathalyzer", "sensors/ir/receive", "sensors/socket/1"], qoses: [0, 0, 0, 0, 0]]
+    packet_id = :random.uniform(65535)
+    options = [id: packet_id, topics: ["sensors/luminosity", "sensors/temperature", "sensors/breathalyzer", "sensors/ir/receive", "sensors/socket/1"], qoses: [0, 0, 0, 0, 0]]
+
     Bender.MqttClient.subscribe(Process.whereis(:mqtt), options)
   end
 
   def publish_message(message, topic) do
-    options = [id: 101, topic: topic, message: message, dup: 0, qos: 0, retain: 0]
+    packet_id = :random.uniform(65535)
+    options = [id: packet_id, topic: topic, message: message, dup: 0, qos: 0, retain: 0]
 
     Bender.MqttClient.publish(Process.whereis(:mqtt), options)
-    Logger.info("Published message #{message} to #{topic}")
+    Logger.info("Published message #{message} to #{topic} with packet_id #{packet_id}.")
   end
 
   def on_subscribed_publish(options) do
@@ -32,6 +37,6 @@ defmodule Bender.MqttClient do
       _                    -> Bender.Endpoint.broadcast("sensors:data", "sensor:update", %{value: value, topic: topic})
     end
 
-    Logger.info("Subscribed message #{value} from #{topic}")
+    Logger.info("Subscribed message #{value} from #{topic}.")
   end
 end
