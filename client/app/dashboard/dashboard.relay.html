@@ -2,18 +2,18 @@
   <h3>
     <span class='fa fa-power-off'></span>
     Relé
-    <span ng-if='status == "on"' class='label label-success turn-off'>Ligado</span>
-    <span ng-if='status == "off"' class='label label-danger turn-on'>Desligado</span>
+    <span ng-if='status == "1"' class='label label-success turn-off'>Ligado</span>
+    <span ng-if='status == "101"' class='label label-danger turn-on'>Desligado</span>
   </h3>
 
   <hr>
 
   <div class='lead'>Liga algum trem por aí.</div>
 
-  <button type='button' class='btn btn-danger btn-lg turn-off' ng-click='turn("off")'>
+  <button type='button' class='btn btn-danger btn-lg turn-off' ng-click='turn("101")'>
     <span class='fa fa-toggle-off' aria-hidden='true'></span> Desligar
   </button>
-  <button type='button' class='btn btn-success btn-lg turn-on' ng-click='turn("on")'>
+  <button type='button' class='btn btn-success btn-lg turn-on' ng-click='turn("1")'>
     <span class='fa fa-toggle-on' aria-hidden='true'></span> Ligar
   </button>
 </div>

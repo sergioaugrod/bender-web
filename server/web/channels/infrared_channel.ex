@@ -8,7 +8,7 @@ defmodule Bender.InfraredChannel do
   def handle_in("infrared:sender", message, socket) do
     code = message["code"]
 
-    Bender.MqttClient.publish_message(code, "infrared/sender")
+    Bender.MqttClient.publish_message(code, "bender/ir/receptor")
     {:reply, {:ok, %{turn: message["code"]}}, socket}
   end
 end

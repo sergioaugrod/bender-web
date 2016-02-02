@@ -12,11 +12,15 @@
     var socket = SocketService.connect();
     var channel = SocketService.channel('relays:control');
 
-    $scope.status = 'off';
+    $scope.status = '0';
+
+    channel.on('relays:value', function(message) {
+      $scope.status = message.value;
+
+      $scope.$digest();
+    });
 
     $scope.turn = function(status) {
-      $scope.status = status;
-
       channel.push('relays:turn', {turn: status});
     };
   }
