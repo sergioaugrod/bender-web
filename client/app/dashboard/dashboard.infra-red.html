@@ -1,12 +1,19 @@
 <div class='row'>
-  <h1>Infra Vermelho</h1>
+  <h3>
+    <span class='fa fa-magic'></span>
+    Infra Vermelho
+  </h3>
+
+  <hr>
+
+  <div class='lead'>Emite algum trem por aí.</div>
 
   <form ng-submit='addCode(code)'>
     <div class='form-group'>
       <label for='code'>Código</label>
       <input type='text' class='form-control' id='code' ng-model='code' placeholder='Código'>
     </div>
-    <button type='submit' class='btn btn-success'>Submit</button>
+    <button type='submit' class='btn btn-success'>Adicionar</button>
   </form>
 
   <table class='table table-striped' ng-if='codes.length > 0'>

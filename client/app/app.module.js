@@ -7,7 +7,8 @@
   ]);
 
   angular.module('app.core', [
-    'ngRoute'
+    'ngRoute',
+    'ngAnimate'
   ]);
 
   angular.module('app').run(Run);
