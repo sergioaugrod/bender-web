@@ -14,7 +14,7 @@
     $rootScope.sensors = {
       temperature: 0,
       luminosity: 0,
-      breathalyzer: 0
+      infra: 0
     };
   }
 })();
