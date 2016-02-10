@@ -5,26 +5,28 @@
     .module('app.dashboard')
     .controller('DashboardMainController', DashboardMainController);
 
-  DashboardMainController.$inject = ['$rootScope', 'SocketService'];
+  DashboardMainController.$inject = ['$rootScope', 'SocketService', 'Constants'];
 
   /* @ngInject */
-  function DashboardMainController($rootScope, SocketService) {
+  function DashboardMainController($rootScope, SocketService, Constants) {
+    var constants = Constants.socket.channels;
+
     var socket = SocketService.connect();
 
-    var channel = SocketService.channel('sensors:data');
-    var channelInfra = SocketService.channel('infrared:control');
+    var channel = SocketService.channel(constants.sensors.name);
+    var channelInfra = SocketService.channel(constants.infrared.name);
 
     function formatLuminosity(luminosity) {
       var scale = (luminosity / 1023 * 100).toPrecision(3);
 
-      return scale + "%";
+      return scale + '%';
     }
 
     function formatTemperature(temperature) {
-      return temperature + " °C";
+      return temperature + ' °C';
     }
 
-    channel.on('sensor:update', function(message) {
+    channel.on(constants.sensors.events.update, function(message) {
       var sensor = message.topic.split("/")[1];
 
       if(sensor == 'temperature') {
@@ -36,7 +38,7 @@
       $rootScope.$digest();
     });
 
-    channelInfra.on('infrared:value', function(message) {
+    channelInfra.on(constants.infrared.events.value, function(message) {
       $rootScope.sensors.infra = message.value;
 
       $rootScope.$digest();

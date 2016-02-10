@@ -12,9 +12,9 @@
 
   function Run($rootScope) {
     $rootScope.sensors = {
-      temperature: 0,
-      luminosity: 0,
-      infra: 0
+      temperature: '0 °C',
+      luminosity: '0%',
+      infra: '0'
     };
   }
 })();

@@ -5,23 +5,25 @@
     .module('app.dashboard')
     .controller('DashboardRelayController', DashboardRelayController);
 
-  DashboardRelayController.$inject = ['$scope', 'SocketService'];
+  DashboardRelayController.$inject = ['$scope', 'SocketService', 'Constants'];
 
   /* @ngInject */
-  function DashboardRelayController($scope, SocketService) {
+  function DashboardRelayController($scope, SocketService, Constants) {
+    var constants = Constants.socket.channels;
+
     var socket = SocketService.connect();
-    var channel = SocketService.channel('relays:control');
+    var channel = SocketService.channel(constants.relays.name);
 
     $scope.status = '0';
 
-    channel.on('relays:value', function(message) {
+    channel.on(constants.relays.events.value, function(message) {
       $scope.status = message.value;
 
       $scope.$digest();
     });
 
     $scope.turn = function(status) {
-      channel.push('relays:turn', {turn: status});
+      channel.push(constants.relays.events.turn, {turn: status});
     };
   }
 })();

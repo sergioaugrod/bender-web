@@ -5,16 +5,18 @@
     .module('app.dashboard')
     .controller('DashboardInfraRedController', DashboardInfraRedController);
 
-  DashboardInfraRedController.$inject = ['$scope', 'SocketService'];
+  DashboardInfraRedController.$inject = ['$scope', 'SocketService', 'Constants'];
 
   /* @ngInject */
-  function DashboardInfraRedController($scope, SocketService) {
+  function DashboardInfraRedController($scope, SocketService, Constants) {
+    var constants = Constants.socket.channels;
+
     $scope.codes = [];
 
     var socket = SocketService.connect();
-    var channel = SocketService.channel('infrared:control');
+    var channel = SocketService.channel(constants.infrared.name);
 
-    channel.on('infrared:value', function(message) {
+    channel.on(constants.infrared.events.value, function(message) {
       $scope.code = message.value;
 
       $scope.$digest();
@@ -30,7 +32,7 @@
     $scope.send = function(code) {
       var irCode = 'IR|' + code;
 
-      code && channel.push('infrared:sender', {code: irCode});
+      code && channel.push(constants.infrared.events.sender, {code: irCode});
     };
 
     $scope.removeCode = function(index) {

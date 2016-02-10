@@ -7,8 +7,9 @@ defmodule Bender.RelayChannel do
 
   def handle_in("relays:turn", message, socket) do
     turn = message["turn"]
+    queue = Bender.MqttClient.queues[:relay][:sender]
 
-    Bender.MqttClient.publish_message(turn, "bender/socket/1")
+    Bender.MqttClient.publish_message(turn, queue)
     {:reply, {:ok, %{turn: message["turn"]}}, socket}
   end
 end
