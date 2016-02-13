@@ -26,10 +26,50 @@ $ mix deps.get
 $ mix phoenix.server
 ```
 
-Change MQTT host config `mqtt.host` in `server/config/config.exs`:
+Change `MQTT` config in [server/config/config.exs](https://github.com/sergioaugrod/bender-web/blob/master/server/config/config.exs):
 
 ```elixir
-  mqtt: [host: "localhost" ]
+mqtt: [
+  host: "localhost", username: "", password: "", port: 1883,
+  queues: [
+    luminosity: "sensors/luminosity",
+    temperature: "sensors/temperature",
+    infrared: [sender: "bender/ir/receptor", receiver: "sensors/ir/receive"],
+    relay: [sender: "bender/socket/1", receiver: "sensors/socket/1"]
+  ]
+]
+```
+
+Change `Constants`config in [client/app/app.constants.js](https://github.com/sergioaugrod/bender-web/blob/master/client/app/app.constants.js):
+
+```javascript
+  var constants = {
+    socket: {
+      host: 'localhost:4000',
+      channels: {
+        sensors: {
+          name: 'sensors:data',
+          events: {
+            update: 'sensor:update'
+          }
+        },
+        infrared: {
+          name: 'infrared:control',
+          events: {
+            value: 'infrared:value',
+            sender: 'infrared:sender'
+          }
+        },
+        relays: {
+          name: 'relays:control',
+          events: {
+            value: 'relays:value',
+            turn: 'relays:turn'
+          }
+        }
+      }
+    }
+  };
 ```
 
 ## Usage
