@@ -1,6 +1,6 @@
 # Bender
 
-Capture and sends sensor data by MQTT server.
+Capture and sends sensor data by MQTT server. Builded with Elixir and AngularJS.
 
 ## Prerequisites
 
@@ -43,33 +43,33 @@ mqtt: [
 Change `Constants`config in [client/app/app.constants.js](https://github.com/sergioaugrod/bender-web/blob/master/client/app/app.constants.js):
 
 ```javascript
-  var constants = {
-    socket: {
-      host: 'localhost:4000',
-      channels: {
-        sensors: {
-          name: 'sensors:data',
-          events: {
-            update: 'sensor:update'
-          }
-        },
-        infrared: {
-          name: 'infrared:control',
-          events: {
-            value: 'infrared:value',
-            sender: 'infrared:sender'
-          }
-        },
-        relays: {
-          name: 'relays:control',
-          events: {
-            value: 'relays:value',
-            turn: 'relays:turn'
-          }
+var constants = {
+  socket: {
+    host: 'localhost:4000',
+    channels: {
+      sensors: {
+        name: 'sensors:data',
+        events: {
+          update: 'sensor:update'
+        }
+      },
+      infrared: {
+        name: 'infrared:control',
+        events: {
+          value: 'infrared:value',
+          sender: 'infrared:sender'
+        }
+      },
+      relays: {
+        name: 'relays:control',
+        events: {
+          value: 'relays:value',
+          turn: 'relays:turn'
         }
       }
     }
-  };
+  }
+};
 ```
 
 ## Usage
