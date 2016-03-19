@@ -30,9 +30,7 @@
     };
 
     $scope.send = function(code) {
-      var irCode = 'IR|' + code;
-
-      code && channel.push(constants.infrared.events.sender, {code: irCode});
+      code && channel.push(constants.infrared.events.sender, {code: code});
     };
 
     $scope.removeCode = function(index) {

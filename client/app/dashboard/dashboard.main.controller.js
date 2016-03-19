@@ -17,9 +17,7 @@
     var channelInfra = SocketService.channel(constants.infrared.name);
 
     function formatLuminosity(luminosity) {
-      var scale = (luminosity / 1023 * 100).toPrecision(3);
-
-      return scale + '%';
+      return luminosity + '%';
     }
 
     function formatTemperature(temperature) {
