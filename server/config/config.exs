@@ -16,10 +16,10 @@ config :bender, Bender.Endpoint,
    mqtt: [
      host: "localhost", username: "", password: "", port: 1883,
      queues: [
-       luminosity: "sensors/luminosity",
-       temperature: "sensors/temperature",
-       infrared: [sender: "bender/ir/receptor", receiver: "sensors/ir/receive"],
-       relay: [sender: "bender/socket/1", receiver: "sensors/socket/1"]
+       luminosity: "receiver/luminosity",
+       temperature: "receiver/temperature",
+       infrared: [sender: "sender/infrared", receiver: "receiver/infrared"],
+       relay: [sender: "sender/relay", receiver: "receiver/relay"]
      ]
    ]
 
