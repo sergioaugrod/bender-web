@@ -35,5 +35,6 @@ defmodule Bender.Endpoint do
     key: "_bender_key",
     signing_salt: "8kKj0sKu"
 
+  plug Corsica, origins: "http://localhost:8080", allow_headers: ["accept", "content-type"]
   plug Bender.Router
 end

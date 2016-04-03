@@ -3,7 +3,8 @@
 
   angular.module('app.dashboard', [
     'app.core',
-    'app.services'
+    'app.services',
+    'colorpicker.module'
   ]);
 
   angular.module('app').run(Run);
@@ -14,7 +15,15 @@
     $rootScope.sensors = {
       temperature: '0 °C',
       luminosity: '0%',
-      infra: '0'
+      humidity: '0%',
+      infra: '0',
+    };
+
+    $rootScope.plant = {
+      temperature: '0 °C',
+      humidity: '0%',
+      shower: 'Não',
+      water: 'Não'
     };
   }
 })();

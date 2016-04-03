@@ -6,6 +6,8 @@ defmodule Bender do
 
     children = [
       supervisor(Bender.Endpoint, []),
+      supervisor(Bender.Repo, []),
+      Bender.Influx.Connection.child_spec,
       supervisor(Bender.MqttClient, [%{}])
     ]
 

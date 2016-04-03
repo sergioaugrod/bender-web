@@ -1,0 +1,32 @@
+<div class='row'>
+  <h3>
+    <span class='fa fa-magic'></span>
+    IR
+  </h3>
+
+  <hr>
+
+  <div class='lead'>Emite algum trem por aí.</div>
+
+  <p ng-if='infrareds.length == 0'>Não existem IR cadastrados.</p>
+
+  <table class="table table-condensed" ng-if='infrareds.length > 0'>
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Códigos</th>
+        <th>Enviar Sinal</th>
+        <th>Remover</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-repeat='infrared in infrareds track by $index'>
+        <td>{{infrared.description}}</td>
+        <td>{{infrared.codes.join(' ')}}</td>
+        <td><button type='button' class='btn btn-success' ng-click='send(infrared.codes)'>Enviar</button></td>
+        <td><button type='button' class='btn btn-danger' ng-click='destroy(infrared.id, index)'>Remover</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

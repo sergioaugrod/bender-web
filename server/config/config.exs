@@ -18,6 +18,7 @@ config :bender, Bender.Endpoint,
      queues: [
        luminosity: "receiver/luminosity",
        temperature: "receiver/temperature",
+       humidity: "receiver/humidity",
        infrared: [sender: "sender/infrared", receiver: "receiver/infrared"],
        relay: [sender: "sender/relay", receiver: "receiver/relay"]
      ]
@@ -28,6 +29,20 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+config :bender, Bender.Influx.Connection,
+  hosts:     [ "192.168.99.100" ],
+  http_opts: [ insecure: true ],
+  pool:      [ max_overflow: 0, size: 1 ],
+  port:      8086,
+  scheme:    "http",
+  writer:    Instream.Writer.Line
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
+
+# Configure phoenix generators
+config :phoenix, :generators,
+  migration: true,
+  binary_id: false
+

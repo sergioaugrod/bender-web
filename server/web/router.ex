@@ -19,8 +19,9 @@ defmodule Bender.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Bender do
-  #   pipe_through :api
-  # end
+  scope "/api", Bender do
+    pipe_through :api
+
+    resources "/infrareds", InfraredController
+  end
 end
