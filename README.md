@@ -21,7 +21,7 @@ $ http-server
 ```
 
 ```console
-$ cd server 
+$ cd server
 $ mix deps.get
 $ mix phoenix.server
 ```
@@ -32,18 +32,37 @@ Change `MQTT` config in [server/config/config.exs](https://github.com/sergioaugr
 mqtt: [
   host: "localhost", username: "", password: "", port: 1883,
   queues: [
-    luminosity: "sensors/luminosity",
-    temperature: "sensors/temperature",
-    infrared: [sender: "bender/ir/receptor", receiver: "sensors/ir/receive"],
-    relay: [sender: "bender/socket/1", receiver: "sensors/socket/1"]
+    luminosity: "receiver/luminosity",
+    temperature: "receiver/temperature",
+    humidity: "receiver/humidity",
+    infrared: [sender: "sender/infrared", receiver: "receiver/infrared"],
+    relay: [sender: "sender/relay", receiver: "receiver/relay"]
   ]
 ]
+```
+
+Change `Bender.Influx.Connection` config in [server/config/config.exs](https://github.com/sergioaugrod/bender-web/blob/master/server/config/config.exs):
+
+```elixir
+config :bender, Bender.Influx.Connection,
+  hosts:     [ "192.168.99.100" ],
+  http_opts: [ insecure: true ],
+  pool:      [ max_overflow: 0, size: 1 ],
+  port:      8086,
+  scheme:    "http",
+  writer:    Instream.Writer.Line
 ```
 
 Change `Constants`config in [client/app/app.constants.js](https://github.com/sergioaugrod/bender-web/blob/master/client/app/app.constants.js):
 
 ```javascript
 var constants = {
+  api: {
+    url: 'http://localhost:4000/api/',
+    resources: {
+      infrareds: 'infrareds/'
+    }
+  },
   socket: {
     host: 'localhost:4000',
     channels: {

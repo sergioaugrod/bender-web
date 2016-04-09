@@ -18,13 +18,21 @@ defmodule Bender.Web do
 
   def model do
     quote do
-      # Define common model functionality
+      use Ecto.Schema
+
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query, only: [from: 1, from: 2]
     end
   end
 
   def controller do
     quote do
       use Phoenix.Controller
+
+      alias Bender.Repo
+      import Ecto
+      import Ecto.Query, only: [from: 1, from: 2]
 
       import Bender.Router.Helpers
       import Bender.Gettext
@@ -56,6 +64,10 @@ defmodule Bender.Web do
   def channel do
     quote do
       use Phoenix.Channel
+
+      alias Bender.Repo
+      import Ecto
+      import Ecto.Query, only: [from: 1, from: 2]
       import Bender.Gettext
     end
   end

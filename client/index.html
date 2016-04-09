@@ -2,15 +2,19 @@
   <head>
     <link rel='stylesheet' href='bower_components/bootswatch/cerulean/bootstrap.min.css'>
     <link rel='stylesheet' href='bower_components/font-awesome/css/font-awesome.min.css'>
+    <link rel='stylesheet' href='bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css'>
     <link rel='stylesheet' href='styles/styles.css'>
 
     <title>Bender Web</title>
   </head>
   <body ng-app='app'>
+    <script src='bower_components/jquery/dist/jquery.min.js'></script>
+    <script src='bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
     <script src='bower_components/angular/angular.min.js'></script>
     <script src='bower_components/angular-route/angular-route.min.js'></script>
     <script src='bower_components/angular-animate/angular-animate.min.js'></script>
     <script src='bower_components/phoenix_js/dist/phoenix.js'></script>
+    <script src='bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js'></script>
 
     <script src='app/app.module.js'></script>
     <script src='app/app.constants.js'></script>
@@ -19,10 +23,13 @@
     <script src='app/dashboard/dashboard.routes.js'></script>
     <script src='app/dashboard/dashboard.main.controller.js'></script>
     <script src='app/dashboard/dashboard.relay.controller.js'></script>
-    <script src='app/dashboard/dashboard.infra-red.controller.js'></script>
+    <script src='app/dashboard/infra-red/dashboard.infra-red.create.controller.js'></script>
+    <script src='app/dashboard/infra-red/dashboard.infra-red.list.controller.js'></script>
+    <script src='app/dashboard/dashboard.plant.controller.js'></script>
 
     <script src='app/services/services.module.js'></script>
     <script src='app/services/services.socket.js'></script>
+    <script src='app/services/services.infrared.js'></script>
 
     <nav class='navbar navbar-inverse navbar-fixed-top'>
       <div class='container'>
@@ -43,9 +50,17 @@
             <li>
               <a href='#/relay/'>Relé</a>
             </li>
-            <li>
-              <a href='#/infra-red/'>Infra Vermelho</a>
+            <li class="dropdown">
+              <a class="dropdown-toggle clickable" data-toggle="dropdown">IR
+                <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href='#/infra-red/create'>Cadastrar</a></li>
+                <li><a href='#/infra-red/list'>Listar</a></li>
+              </ul>
             </li>
+            <!-- <li>
+              <a href='#/plant/'>Planta</a>
+            </li> -->
           </ul>
         </div>
       </div>

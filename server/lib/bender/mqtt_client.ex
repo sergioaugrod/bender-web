@@ -20,12 +20,12 @@ defmodule Bender.MqttClient do
   end
 
   def topics do
-    [queues[:luminosity], queues[:temperature], queues[:infrared][:receiver], queues[:relay][:receiver]]
+    [queues[:luminosity], queues[:temperature], queues[:humidity], queues[:infrared][:receiver], queues[:relay][:receiver]]
   end
 
   def handle_subscribes do
     packet_id = :random.uniform(65535)
-    options = [id: packet_id, topics: topics, qoses: [0, 0, 0, 0]]
+    options = [id: packet_id, topics: topics, qoses: [0, 0, 0, 0, 0]]
 
     Bender.MqttClient.subscribe(Process.whereis(:mqtt), options)
   end
@@ -54,10 +54,20 @@ defmodule Bender.MqttClient do
     cond do
       queues[:infrared][:receiver] == topic -> Bender.Endpoint.broadcast("infrared:control", "infrared:value", %{value: value, topic: topic})
       queues[:relay][:receiver]    == topic -> Bender.Endpoint.broadcast("relays:control", "relays:value", %{value: value, topic: topic})
-      queues[:temperature]         == topic  -> Bender.Endpoint.broadcast("sensors:data", "sensor:update", %{value: value, topic: topic})
-      queues[:luminosity]          == topic  -> Bender.Endpoint.broadcast("sensors:data", "sensor:update", %{value: value, topic: topic})
+      queues[:temperature]         == topic -> broadcast_and_write(value, topic, %Bender.Influx.Series.Temperature{})
+      queues[:luminosity]          == topic -> broadcast_and_write(value, topic, %Bender.Influx.Series.Luminosity{})
+      queues[:humidity]            == topic -> broadcast_and_write(value, topic, %Bender.Influx.Series.Humidity{})
     end
 
     Logger.info("Subscribed message #{value} from #{topic}.")
+  end
+
+  def broadcast_and_write(value, topic, data) do
+    Bender.Endpoint.broadcast("sensors:data", "sensor:update", %{value: value, topic: topic})
+
+    {number, _} = Float.parse(value)
+
+    %{ data | fields: %{ data.fields | value: number}}
+    |> Bender.Influx.Connection.write()
   end
 end

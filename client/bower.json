@@ -22,6 +22,7 @@
     "angular-animate": "~1.4.9",
     "font-awesome": "~4.5.0",
     "bootswatch": "^3.3.6",
-    "phoenix_js": "~0.0.2"
+    "phoenix_js": "~0.0.2",
+    "angular-bootstrap-colorpicker": "~3.0.25"
   }
 }

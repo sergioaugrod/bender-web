@@ -2,6 +2,12 @@
   'use strict';
 
   var constants = {
+    api: {
+      url: 'http://localhost:4000/api/',
+      resources: {
+        infrareds: 'infrareds/'
+      }
+    },
     socket: {
       host: 'localhost:4000',
       channels: {
@@ -9,6 +15,13 @@
           name: 'sensors:data',
           events: {
             update: 'sensor:update'
+          }
+        },
+        plant: {
+          name: 'plant:control',
+          events: {
+            value: 'plant:value',
+            sender: 'plant:sender'
           }
         },
         infrared: {
@@ -24,7 +37,7 @@
             value: 'relays:value',
             turn: 'relays:turn'
           }
-        } 
+        }
       }
     }
   };
@@ -32,6 +45,7 @@
   angular.
     module('app.core')
     .constant('Constants', {
-      'socket': constants.socket 
+      'api': constants.api,
+      'socket': constants.socket
     });
 })();

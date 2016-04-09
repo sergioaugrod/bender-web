@@ -1,0 +1,65 @@
+<div class='row'>
+  <h3>
+    <span class='fa fa-leaf'></span>
+    Planta Inteligente
+  </h3>
+
+  <hr>
+</div>
+
+<div class='row'>
+  <div class='lead'>Informações:</div>
+
+  <div class='col-md-3 text-center'>
+    <div class='thumbnail'>
+      <span class='fa fa-5x fa-sun-o sensors'></span>
+      <div class='caption'>
+        <h3>Temperatura</h3>
+        <div class='lead'>{{plant.temperature}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class='col-md-3 text-center'>
+    <div class='thumbnail'>
+      <span class='fa fa-5x fa-tint sensors'></span>
+      <div class='caption'>
+        <h3>Tem água?</h3>
+        <div class='lead'>{{plant.water}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class='col-md-3 text-center'>
+    <div class='thumbnail'>
+      <span class='fa fa-5x fa-umbrella sensors'></span>
+      <div class='caption'>
+        <h3>Umidade</h3>
+        <div class='lead'>{{plant.humidity}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class='col-md-3 text-center'>
+    <div class='thumbnail'>
+      <span class='fa fa-5x fa-cogs sensors'></span>
+      <div class='caption'>
+        <h3>Regando?</h3>
+        <div class='lead'>{{plant.shower}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='row'>
+  <div class='lead'>Controle de Luz:</div>
+
+  <div class='col-md-4'>
+    <div class='input-group'>
+      <input colorpicker='rgb' type='text' class='form-control' placeholder='Cor da Luz' ng-model='color'/>
+      <div class='input-group-btn'>
+        <button type='button' ng-click='sendColor(color)' class='btn btn-success'>Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>

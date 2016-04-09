@@ -15,9 +15,17 @@
         templateUrl: 'app/dashboard/dashboard.relay.html',
         controller: 'DashboardRelayController'
       })
-      .when('/infra-red', {
-        templateUrl: 'app/dashboard/dashboard.infra-red.html',
-        controller: 'DashboardInfraRedController'
+      .when('/infra-red/create', {
+        templateUrl: 'app/dashboard/infra-red/dashboard.infra-red.create.html',
+        controller: 'DashboardInfraRedCreateController'
+      })
+      .when('/infra-red/list', {
+        templateUrl: 'app/dashboard/infra-red/dashboard.infra-red.list.html',
+        controller: 'DashboardInfraRedListController'
+      })
+      .when('/plant', {
+        templateUrl: 'app/dashboard/dashboard.plant.html',
+        controller: 'DashboardPlantController'
       })
     .otherwise({
       redirectTo: '/'

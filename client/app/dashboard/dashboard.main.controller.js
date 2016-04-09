@@ -16,7 +16,7 @@
     var channel = SocketService.channel(constants.sensors.name);
     var channelInfra = SocketService.channel(constants.infrared.name);
 
-    function formatLuminosity(luminosity) {
+    function formatPercent(luminosity) {
       return luminosity + '%';
     }
 
@@ -30,7 +30,9 @@
       if(sensor == 'temperature') {
         $rootScope.sensors.temperature = formatTemperature(message.value);
       } else if(sensor == 'luminosity') {
-        $rootScope.sensors.luminosity = formatLuminosity(message.value);
+        $rootScope.sensors.luminosity = formatPercent(message.value);
+      } else if(sensor == 'humidity') {
+        $rootScope.sensors.humidity = formatPercent(message.value);
       }
 
       $rootScope.$digest();
